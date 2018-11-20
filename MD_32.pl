@@ -23,15 +23,13 @@ list_set([X|Xs],[X|Ys]) :-
 cc(A,B,C) :-
     matching(A,B,C).
 
-matching([],_,[]).
-matching(_,[],[]).
-matching([],[],[]).
+matching([],_,_).
 matching([Pair|P1], T, Z) :-
     match(Pair,T,Z),
     matching(P1,T,Z).
 
 match(_,[],[]).
-match((K1,V1),[(K2,V2)|P2],Z) :-
+match((K1,V1),[(K2,V2)|P2],[Pair|Z]) :-
     V1 == K2,
-    member((K1,V2),Z),
+    Pair = (K1,V2),
     match((K1,V1), P2, Z).
